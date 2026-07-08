@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "poc-static-example",
   description: "A proof-of-concept static Next.js site hosted on GitHub Pages",
