@@ -5,9 +5,29 @@
   margin: 0 auto;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
 .title {
   font-size: 2rem;
-  margin-bottom: 2rem;
+}
+
+.logoutButton {
+  background: transparent;
+  border: 1px solid #333;
+  color: #e8e8e8;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.logoutButton:hover {
+  border-color: #4a9eff;
 }
 
 .grid {

@@ -1,0 +1,66 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.card {
+  background: #1e1e1e;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  margin-top: 0.5rem;
+}
+
+.input {
+  background: #121212;
+  border: 1px solid #333;
+  color: #e8e8e8;
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4a9eff;
+}
+
+.button {
+  margin-top: 1.25rem;
+  background: #4a9eff;
+  border: none;
+  color: #0b0b0b;
+  font-weight: 600;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+}
