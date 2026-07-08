@@ -24,10 +24,20 @@ cd src/api && npm install && npm start   # http://localhost:3001
 cd src/web && npm install && npm run dev # http://localhost:3000
 ```
 
-The site currently talks to the API's public URL, hard-coded in
-[src/web/app/page.js](src/web/app/page.js). The plan is to replace that with
-a tunnel (chisel or rathole) so the site can reach a locally-run API without
-depending on Codespaces port forwarding.
+The site currently talks to the API's public URL, hard-coded as
+`API_BASE_URL` in [src/web/lib/api.js](src/web/lib/api.js) — update it there
+if the API's address changes. The plan is to replace this with a tunnel
+(chisel or rathole) so the site can reach a locally-run API without depending
+on Codespaces port forwarding. In the meantime, see
+[src/api's README](src/api/README.md#reaching-this-from-the-deployed-site)
+for how to set the port's visibility to Public.
+
+## Auth
+
+The site gates its home page behind a login screen backed by the API's stub
+credentials (`admin` / `password123`, defined in
+[src/api/data/users.js](src/api/data/users.js)). There's no real user
+management yet — this is enough to exercise the login flow end to end.
 
 ## Deployment
 

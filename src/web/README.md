@@ -17,11 +17,22 @@ Pages URL).
 
 ## Data
 
-The home page ([app/page.js](app/page.js)) fetches the book list from the API
-in [src/api](../api) at runtime, client-side. The API URL is currently
-hard-coded — there's no local API running, no books render (the page shows an
-error state instead). See the root README for how to run the API alongside
-this site.
+The home page ([app/page.js](app/page.js)) and login page
+([app/login/page.js](app/login/page.js)) fetch from the API in
+[src/api](../api) at runtime, client-side — there's no server on this side to
+proxy requests. If there's no API reachable, the home page shows an error
+state instead of books.
+
+The API's URL is hard-coded in [lib/api.js](lib/api.js) as `API_BASE_URL` —
+**update it there** if the API moves (e.g. a different Codespace, a tunnel
+URL, or a deployed host). It's imported by both pages rather than duplicated.
+
+## Auth
+
+The home page redirects to `/login` unless a valid session token (from
+`POST /api/auth/login`) is present in `localStorage` — see
+[lib/auth.js](lib/auth.js) for the storage helpers. See the root README for
+the stub credentials.
 
 ## Build
 
