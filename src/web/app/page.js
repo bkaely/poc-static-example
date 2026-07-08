@@ -1,17 +1,41 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { API_BASE_URL } from "@/lib/api";
+import { getToken, clearToken } from "@/lib/auth";
 import styles from "./page.module.css";
 
-const API_URL =
-  "https://special-parakeet-9wr9676j7r2xpxq-3001.app.github.dev/api/books";
-
 export default function Home() {
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
   const [books, setBooks] = useState([]);
   const [status, setStatus] = useState("loading");
 
   useEffect(() => {
-    fetch(API_URL)
+    const token = getToken();
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
+
+    fetch(`${API_BASE_URL}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("invalid session");
+        setAuthChecked(true);
+      })
+      .catch(() => {
+        clearToken();
+        router.replace("/login");
+      });
+  }, [router]);
+
+  useEffect(() => {
+    if (!authChecked) return;
+
+    fetch(`${API_BASE_URL}/api/books`)
       .then((res) => {
         if (!res.ok) throw new Error(`Request failed: ${res.status}`);
         return res.json();
@@ -21,11 +45,29 @@ export default function Home() {
         setStatus("ready");
       })
       .catch(() => setStatus("error"));
-  }, []);
+  }, [authChecked]);
+
+  function handleLogout() {
+    clearToken();
+    router.replace("/login");
+  }
+
+  if (!authChecked) {
+    return (
+      <main className={styles.main}>
+        <p className={styles.status}>Checking session…</p>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Books</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Books</h1>
+        <button className={styles.logoutButton} onClick={handleLogout}>
+          Log out
+        </button>
+      </div>
 
       {status === "loading" && <p className={styles.status}>Loading books…</p>}
       {status === "error" && (

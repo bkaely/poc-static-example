@@ -3,6 +3,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.js";
 import { booksRouter } from "./routes/books.js";
+import { authRouter } from "./routes/auth.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -16,6 +17,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/openapi.json", (req, res) => res.json(swaggerSpec));
 
 app.use("/api/books", booksRouter);
+app.use("/api/auth", authRouter);
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
